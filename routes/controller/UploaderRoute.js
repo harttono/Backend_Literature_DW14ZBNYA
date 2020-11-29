@@ -1,7 +1,6 @@
 const uploadFile = require('../../middleware/upload');
 const path = require('path');
 const cloudinary = require('cloudinary').v2;
-const firebase = require('firebase');
 const fs = require('fs');
 
 // upload file

@@ -138,7 +138,7 @@ exports.createAdmin = async (req,res) =>{
             address:"pemalang",
             role:"Admin",
             isAdmin:1,
-            picture:'http://localhost:8000/photos/account.png'
+            picture:'https://literature04.herokuapp.com/photos/account.png'
         }
         
         bycypt.hash(adminData.password,10,async(err,hash)=>{
