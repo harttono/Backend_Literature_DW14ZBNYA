@@ -1,35 +1,56 @@
 const uploadFile = require('../../middleware/upload');
-
-
+const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const firebase = require('firebase');
+const fs = require('fs');
 
 // upload file
 exports.upload = async (req,res,next) =>{
     try{
-        
-        await uploadFile(req,res,(err) =>{
-            if (err) {
-                if (err.code === 'LIMIT_FILE_SIZE') {
-                  return res.status(400).send({
-                    status: 'fail',
-                    message: `Max file sized 2mb`,
-                    code: 400,
-                  });
+    
+            await uploadFile(req,res,(err) =>{
+                if (err) {
+                    if (err.code === 'LIMIT_FILE_SIZE') {
+                      return res.status(400).send({
+                        status: 'fail',
+                        message: `Max file sized 2mb`,
+                        code: 400,
+                      });
+                    }
+                    return res.status(400).send(err);
                 }
-                return res.status(400).send(err);
-            }
 
-            if(req.file == undefined){
-                return res.status(400).send({
-                    message:'Please upload a file !'
+                if(req.file === undefined){
+                    return res.status(400).send({
+                        status: 'check',
+                        message:'Please upload a file !',
+                        code: 400
+                    })
+                }
+                
+                cloudinary.config({
+                    cloud_name:'harttonz',
+                    api_key:'652211497259339',
+                    api_secret:'0Tk8LUBf-e8IE8NqkXinCcSqKRU'
                 })
-            }
-            let ext = path.extname(req.file.originalname);
-            res.status(200).send({
-                message:`Uploaded the ${req.file.originalname} successfully.`,
-                filename:`${req.file.originalname}`,
-                url:ext === '.pdf' ? `http://localhost:8000/files/${req.file.filename}` : `http://localhost:8000/photos/${req.file.filename}`
-            })
-        });    
+            
+                const path = req.file.path
+                const uniqueFilename = new Date().toISOString()
+            
+                cloudinary.uploader.upload(
+                  path,
+                  { public_id: `literature/${uniqueFilename}`, tags: `literature` }, 
+                  function(err, image) {
+                    if (err) return res.send(err)
+                    fs.unlinkSync(path)
+                    res.status(200).send({
+                        status:'uploaded',
+                        message:`Uploaded the ${req.file.originalname} successfully.`,
+                        url:`${image.url}`
+                    })
+                  }
+                )
+            });        
     }
     catch(err){
         res.status(500).send({
