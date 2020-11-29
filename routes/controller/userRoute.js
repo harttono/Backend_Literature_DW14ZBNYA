@@ -81,7 +81,7 @@ exports.register = async (req,res) =>{
             address:address,
             role:"User",
             isAdmin:false,
-            picture:'http://localhost:8000/photos/account.png'
+            picture:'https://literature04.herokuapp.com/photos/account.png'
         }
         const user = await User.findOne({
             where:{
