@@ -81,7 +81,7 @@ exports.register = async (req,res) =>{
             address:address,
             role:"User",
             isAdmin:false,
-            picture:'http://localhost:8000/files/account.png'
+            picture:'http://localhost:8000/photos/account.png'
         }
         const user = await User.findOne({
             where:{
@@ -138,7 +138,7 @@ exports.createAdmin = async (req,res) =>{
             address:"pemalang",
             role:"Admin",
             isAdmin:1,
-            picture:'http://localhost:8000/files/account.png'
+            picture:'http://localhost:8000/photos/account.png'
         }
         
         bycypt.hash(adminData.password,10,async(err,hash)=>{

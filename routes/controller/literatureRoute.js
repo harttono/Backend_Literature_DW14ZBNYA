@@ -291,32 +291,5 @@ exports.myLiteratures = async(req,res) =>{
 }
 
 
-// sort literature
 
-exports.sort = async (req,res) =>{
-    const {status} =  req.query;
-    try{
-       if(status){
-            const sorted = await Literature.findAll({
-                attributes:['id','title','author','publication','pages','ISBN','status','cover','attachment','description'],
-                where:{
-                    status:status
-                }
-            })
-            if (sorted){
-                res.status(200).send({
-                    data:sorted
-                })
-            }else{
-                res.status(400).send({
-                    message:`use params for sorted data`
-                })
-            }
-       }
 
-    }catch(err){
-        res.status(500).send({
-            message:`error ${err}`
-        })
-    }
-}

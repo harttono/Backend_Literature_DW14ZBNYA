@@ -20,8 +20,8 @@ app.get('/',(req,res) =>{
   })
 })
 
-app.use('/files',express.static('public/file'));
-global.__basedir = __dirname;
+app.use('/files',express.static('public/files'));
+app.use('/photos',express.static('public/photos'));
 app.use('/api/v1',router)
 app.listen(Port,() => console.log(`port ${Port} is listening.`))
 

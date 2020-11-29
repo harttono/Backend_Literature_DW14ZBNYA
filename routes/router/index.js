@@ -30,7 +30,7 @@ router.patch('/list-transaction/:id',isAuth,isAdmin,edit_LiteratureUser);
 router.delete('/list-transaction/:id',isAuth,isAdmin,delete_literatureUser);
 
 // literature endpoint
-const {sort,add_Literature,detail_Literature,edit_Literature,searchLiterature,delete_Literature,myLiteratures,getLiteratures} = require('../controller/literatureRoute');
+const {add_Literature,detail_Literature,edit_Literature,searchLiterature,delete_Literature,myLiteratures,getLiteratures} = require('../controller/literatureRoute');
 router.post('/literature',isAuth,add_Literature);
 router.get('/literature/:id',isAuth,detail_Literature);
 router.patch('/literature/:id',isAuth,edit_Literature);
@@ -38,7 +38,7 @@ router.delete('/literature/:id',isAuth,delete_Literature);
 router.get('/literatures',isAuth,searchLiterature);
 router.get('/getLiteratures',isAuth,getLiteratures);
 router.get('/myLiteratures',isAuth,myLiteratures);
-router.get('/sorted',isAuth,sort);
+
 
 
 // collection endpoint
